@@ -1,0 +1,4 @@
+To achieve Continuous Delivery, we use release pipelines.
+we can deploy the build pipeline, across multiple environments.
+in release pipeline, we need to add approvers, to approve that release pipeline.
+we can add pre-deployment approvers and post deployment approvers.
