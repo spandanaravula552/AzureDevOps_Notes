@@ -1,4 +1,7 @@
 To achieve Continuous Delivery, we use release pipelines.
-we can deploy the build pipeline, across multiple environments.
+we can deploy the build pipeline, across multiple environments with the help of release pipelines.
 in release pipeline, we need to add approvers, to approve that release pipeline.
 we can add pre-deployment approvers and post deployment approvers.
+To create service connection in Azure devops, go to project settings->pipelines->serviceconnection->NewConnection->provide azure subscription->save.
+This will create connection between azure cloud and devops to deploy the resources.
+If we want to install the extension in Azure Devops, go to organiation settings and install extensions like terraform or any other kinds of extensions.
