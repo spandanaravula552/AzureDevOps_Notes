@@ -4,3 +4,20 @@ under each job we have steps, steps can be type of task or script.
 script is nothing but a powershell or bash command, task is predefined code which is already present in azure devops, example publish the build artifacts.
 so, whenever developer make changes to the coe of existing repo of github, whixh is pushed to azure repo, the trigger is associated with the branch of the github repo, so the particular pipeline
 is fired and it will deploy.
+This hierarchy is reflected in the structure of a YAML file like:
+
+YAML
+
+Copy
+- Pipeline
+  - Stage A
+    - Job 1
+      - Step 1.1
+      - Step 1.2
+      - ...
+    - Job 2
+      - Step 2.1
+      - Step 2.2
+      - ...
+  - Stage B
+    - ...
