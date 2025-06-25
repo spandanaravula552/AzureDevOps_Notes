@@ -1,0 +1,6 @@
+A Build Pipeline or CI pipeline contains series of stages, such as build, test and deploy.
+each stages contains multiple jobs, jobs are with agent or without agent, agent means windows VM or Ubuntu VM.
+under each job we have steps, steps can be type of task or script.
+script is nothing but a powershell or bash command, task is predefined code which is already present in azure devops, example publish the build artifacts.
+so, whenever developer make changes to the coe of existing repo of github, whixh is pushed to azure repo, the trigger is associated with the branch of the github repo, so the particular pipeline
+is fired and it will deploy.
