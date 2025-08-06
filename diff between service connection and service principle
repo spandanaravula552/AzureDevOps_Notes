@@ -1,0 +1,19 @@
+Service Principal (SP)
+What it is:
+A security identity in Azure AD that allows an application, script, or tool (like Terraform, Azure CLI, or DevOps) to authenticate and access Azure resources. Think of it as a "user account for apps."
+Key characteristics:
+Has its own App ID (client ID) and password/secret or certificate.
+Needs role assignments in Azure (e.g., Contributor, Owner) to manage resources.
+Can be used anywhere you need to authenticate to Azure, including scripts, Terraform, or custom apps.
+Example use case:
+Terraform in a pipeline uses a service principal to authenticate to Azure and create resources like VMs or storage accounts.
+2. Service Connection (in Azure DevOps)
+What it is:
+A configured connection in Azure DevOps that stores credentials and authentication info to connect to external services like Azure, GitHub, Docker, etc.
+Key characteristics:
+In the case of Azure, it often wraps a service principal.
+Provides a friendly way for pipelines to access Azure without hardcoding secrets.
+Types include Service Principal (automatic or manual), Managed Identity, or OAuth.
+Defines the scope of access (subscription, resource group).
+Example use case:
+An Azure DevOps pipeline selects a service connection to deploy Terraform code to a specific Azure subscription. The service connection uses a service principal behind the scenes.
