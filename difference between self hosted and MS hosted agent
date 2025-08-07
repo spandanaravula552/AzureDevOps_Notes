@@ -1,0 +1,30 @@
+
+In Azure DevOps, agents are the computing infrastructure used to run jobs in pipelines. There are two main types: Microsoft-hosted agents and self-hosted agents, each with distinct characteristics: 
+Microsoft-Hosted Agents: 
+
+• Management: Fully managed by Microsoft. Users select an agent image (e.g., Windows, Ubuntu) and Microsoft handles the underlying infrastructure, updates, and maintenance. 
+• Isolation: Each pipeline run gets a fresh, isolated virtual machine, ensuring a clean environment and preventing conflicts from previous runs. 
+• Simplicity: Easier to set up and use, especially for common build and deployment scenarios, as no infrastructure management is required. 
+• Cost: Included in Azure DevOps usage, with certain limitations on free tier usage (e.g., job timeout limits). 
+
+Self-Hosted Agents: 
+
+• Management: Users are responsible for providing, configuring, and maintaining the agent infrastructure (e.g., virtual machines, physical servers, or containers). 
+• Control and Customization: Offers greater control over the environment, allowing installation of specific software, tools, and configurations required for unique build or deployment needs. 
+• Performance and Caching: Machine-level caches and configurations can persist between runs, potentially leading to faster incremental builds and improved performance for specific workloads. 
+• Cost: Users incur the cost of the underlying infrastructure where the agent is hosted. 
+• Flexibility: Can be deployed in various environments, including on-premises data centers, private clouds, or other public cloud providers, enabling hybrid scenarios. 
+
+Key Differences Summarized: 
+
+| Feature | Microsoft-Hosted Agents | Self-Hosted Agents  |
+| --- | --- | --- |
+| Management | Managed by Microsoft | Managed by User  |
+| Environment | Clean VM per run | Persistent environment  |
+| Customization | Limited (predefined images) | High (user-controlled)  |
+| Infrastructure Cost | Included in Azure DevOps usage | User-incurred  |
+| Use Case | Common builds/deployments | Specific software, performance, hybrid scenarios  |
+
+AI responses may include mistakes.
+
+Not all images can be exported from Search.
