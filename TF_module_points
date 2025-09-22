@@ -1,0 +1,2 @@
+when we added root module path in source argument of child module, we need to specify reference name of resources in module block, and give value as variable names.
+coming to features error: once you given root module path in child module, once you ran init command, root module downloaded, in that providers file give all the provider block. in all providers block give all the details of providers.
