@@ -68,6 +68,6 @@ stages:
                provider: 'azurerm'
                command: 'destroy'
                workingDirectory: '$(System.DefaultWorkingDirectory)/dev'
-               commandOptions: '''-var-file="dev.tfvars"'''
+               commandOptions: '-var-file="dev.tfvars"'
                environmentServiceNameAzureRM: 'Azure subscription 1(585d6b8c-8573-4228-8181-f66bbde60255)'
 
