@@ -1,0 +1,381 @@
+That’s a **lot** of material — there are over 70 questions there! 😄
+
+To make this useful and readable, I’ll give **well-structured, interview-ready answers** for all of them, but grouped and summarized so you can study efficiently.
+Below is a **complete Azure DevOps interview guide**, organized by topic and level, with concise yet detailed explanations and YAML/code examples where relevant.
+
+---
+
+# 💠 AZURE DEVOPS INTERVIEW QUESTIONS & ANSWERS (Complete Guide)
+
+---
+
+## 🧩 1. Fundamentals of Azure DevOps
+
+### 1. What is Azure DevOps?
+
+**Answer:**
+Azure DevOps is a cloud-based DevOps platform by Microsoft that provides development collaboration tools such as:
+
+* **Azure Repos** – Source code management (Git or TFVC).
+* **Azure Pipelines** – CI/CD for building, testing, and deploying code.
+* **Azure Boards** – Agile planning, work tracking, and Kanban boards.
+* **Azure Test Plans** – Manual and exploratory testing tools.
+* **Azure Artifacts** – Package management (NuGet, npm, Maven, Python).
+
+---
+
+### 2. Azure DevOps Services vs Azure DevOps Server
+
+* **Azure DevOps Services:** Cloud-based, automatically updated, SaaS model.
+* **Azure DevOps Server:** On-premises version; data stored locally; needs manual upgrades.
+
+---
+
+### 3. Benefits of Azure DevOps
+
+* End-to-end DevOps toolchain.
+* Integrates easily with Azure and other platforms.
+* Scalable, secure, and customizable pipelines.
+* Agile project management built in.
+
+---
+
+### 4. What is a DevOps pipeline?
+
+A **pipeline** automates the build, test, and deployment of your application.
+It can be defined via YAML or the classic UI.
+
+---
+
+### 5. What are CI and CD?
+
+* **Continuous Integration (CI):** Automatically builds and tests code changes upon commit.
+* **Continuous Deployment (CD):** Automatically deploys code to environments after passing CI.
+
+---
+
+### 6. What are “Artifacts”?
+
+Artifacts are the **output** of build pipelines (e.g., compiled code, packages, Docker images) that can be used in release pipelines.
+
+---
+
+### 7. Build Pipeline vs Release Pipeline
+
+| Feature | Build Pipeline  | Release Pipeline               |
+| ------- | --------------- | ------------------------------ |
+| Purpose | Build/test code | Deploy code                    |
+| Trigger | Code changes    | After build success            |
+| Format  | YAML or classic | Classic UI or YAML multi-stage |
+| Output  | Artifacts       | Deployments                    |
+
+---
+
+### 8. What is YAML in Azure DevOps?
+
+**YAML (Yet Another Markup Language)** defines pipelines as code.
+Example:
+
+```yaml
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+```
+
+---
+
+### 9. Integrate Azure Repos with GitHub
+
+You can link Azure Pipelines to GitHub repos directly using **service connections** or **GitHub Apps**, enabling CI/CD from GitHub code.
+
+---
+
+### 10. What is a Service Connection?
+
+A **service connection** allows Azure DevOps to authenticate to external services like Azure, AWS, DockerHub, or GitHub.
+
+---
+
+## ⚙️ 2. Intermediate: Pipelines & CI/CD
+
+### 1. How to create a CI/CD pipeline?
+
+* Navigate to **Pipelines → New Pipeline**.
+* Choose your repo (GitHub/Azure Repos).
+* Define YAML or use the classic editor.
+* Add build → test → deploy stages.
+
+---
+
+### 2. Multi-Stage vs Classic Pipelines
+
+* **Multi-stage YAML:** Build, test, and deploy defined in one file (pipeline-as-code).
+* **Classic:** UI-based, split between build and release.
+
+---
+
+### 3. How can you trigger a pipeline?
+
+* Automatically (on commit, pull request, or schedule).
+* Manually (via “Run pipeline”).
+* From another pipeline (via pipeline resources).
+
+---
+
+### 4. What are pipeline variables?
+
+Used to store configuration data (environment names, credentials, paths).
+
+```yaml
+variables:
+  buildConfig: 'Release'
+steps:
+- script: echo $(buildConfig)
+```
+
+---
+
+### 5. What are Environments?
+
+Logical groupings of deployment targets (e.g., Dev, QA, Prod).
+Support approvals, gates, and deployment tracking.
+
+---
+
+### 6. Pipeline Templates
+
+You can reuse pipeline logic across projects.
+
+```yaml
+# main pipeline
+extends:
+  template: templates/build.yml
+```
+
+---
+
+### 7. Managing Secrets
+
+Use **Variable Groups** (linked to Key Vault) or pipeline variables marked as secret.
+
+---
+
+### 8. Pipeline Agents
+
+* **Microsoft-hosted:** Provided and managed by Microsoft.
+* **Self-hosted:** Installed on your own VM/server.
+
+---
+
+### 9. Artifact Retention
+
+Controls how long build artifacts are stored (default 30 days). Helps manage storage and compliance.
+
+---
+
+### 10. Deploy to Azure App Service
+
+Use the **Azure WebApp task**:
+
+```yaml
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'ServiceConnection'
+    appName: 'mywebapp'
+    package: '$(System.ArtifactsDirectory)/drop/*.zip'
+```
+
+---
+
+## 🔀 3. Azure Repos & Boards
+
+### 1. What are Azure Repos?
+
+Source control repositories supporting **Git** or **TFVC**.
+
+---
+
+### 2. Branching & Merging
+
+Common strategy: **GitFlow**
+
+* `main` → production-ready code
+* `develop` → integration
+* `feature/*`, `release/*`, `hotfix/*`
+
+---
+
+### 3. Pull Request Policies
+
+Set branch policies to require reviews, builds, and work item linking before merging.
+
+---
+
+### 4. Git vs TFVC
+
+| Feature      | Git         | TFVC        |
+| ------------ | ----------- | ----------- |
+| Model        | Distributed | Centralized |
+| Branching    | Lightweight | Heavy       |
+| Offline work | Yes         | No          |
+
+---
+
+### 5. Azure Boards
+
+Provides Agile planning tools: **Epics, Features, User Stories, Tasks, Bugs**.
+Supports Scrum and Kanban boards.
+
+---
+
+## 🔐 4. Advanced: Automation, Security, Monitoring
+
+### 1. Integration with Jenkins/SonarQube/Terraform
+
+* **Jenkins:** Trigger via REST API or Azure DevOps plugin.
+* **SonarQube:** Add SonarQubePrepare → RunAnalysis → PublishQualityGate tasks.
+* **Terraform:** Use AzureCLI or Terraform tasks in pipelines.
+
+---
+
+### 2. Infrastructure as Code (IaC)
+
+Use **Terraform** or **ARM/Bicep** templates in Azure DevOps pipelines:
+
+```yaml
+- task: TerraformCLI@0
+  inputs:
+    command: 'apply'
+```
+
+---
+
+### 3. Blue-Green & Canary Deployments
+
+Deploy new versions alongside the old one (blue-green) or to a subset of users (canary). Managed via **deployment slots** or **environments with approvals**.
+
+---
+
+### 4. Rollback Strategy
+
+* Keep previous successful build artifact.
+* Use deployment slots to swap back quickly.
+
+---
+
+### 5. Managing Multiple Environments
+
+Use **stages** and **environment variables**:
+
+```yaml
+stages:
+- stage: Dev
+  ...
+- stage: Prod
+  dependsOn: Dev
+```
+
+---
+
+### 6. Security & RBAC
+
+Azure DevOps supports role-based access:
+
+* **Project-level roles:** Reader, Contributor, Administrator.
+* **Fine-grained policies:** Repo permissions, environment approvals.
+
+---
+
+### 7. Azure Key Vault Integration
+
+Store secrets in Key Vault and link to variable groups.
+
+---
+
+### 8. Auditing
+
+Enable **Auditing** under Organization settings → Security → Audit logs.
+
+---
+
+### 9. Monitoring Pipelines
+
+* View pipeline duration & logs.
+* Use Application Insights for deployed apps.
+
+---
+
+### 10. Automated Testing
+
+Integrate test tasks in pipelines:
+
+```yaml
+- task: VSTest@2
+  inputs:
+    testSelector: 'testAssemblies'
+```
+
+---
+
+## 🧠 5. Scenario-Based Answers
+
+| Scenario                             | Approach                                                  |
+| ------------------------------------ | --------------------------------------------------------- |
+| **Deployment failed**                | Check pipeline logs, variables, agent logs, permissions.  |
+| **Secret rotation**                  | Store secrets in Azure Key Vault, re-link automatically.  |
+| **Pipeline only after test success** | Use stages with `dependsOn` and `condition: succeeded()`. |
+| **Prod approvals**                   | Add approval gates in Environment settings.               |
+| **Multi-repo project**               | Use pipeline triggers and repository resources.           |
+
+---
+
+## 🧪 6. Practical / Hands-on Examples
+
+### Example 1 – CI/CD for .NET app
+
+```yaml
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+
+- stage: Deploy
+  dependsOn: Build
+  jobs:
+  - deployment: DeployWeb
+    environment: 'prod'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            inputs:
+              azureSubscription: 'my-service-connection'
+              appName: 'mywebapp'
+              package: '$(Pipeline.Workspace)/drop/*.zip'
+```
+
+---
+
+Would you like me to generate this entire set as a **PDF or Word document** (formatted for interview prep, with section headers and YAML examples nicely styled)? It’s perfect for studying or printing.
